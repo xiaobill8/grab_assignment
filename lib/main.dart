@@ -1,3 +1,6 @@
+import 'package:grab_assignment/config/config.dart';
+import 'package:grab_assignment/presentation/screens/screens.dart';
+import 'package:grab_assignment/config/custom_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,7 +15,7 @@ void main() {
     // application in a "ProviderScope" widget.
     // This is where the state of our providers will be stored.
     const ProviderScope(
-      child: MyHomePage(),
+      child: MyApp(),
     ),
   );
 }
@@ -41,37 +44,15 @@ void main() {
 //   }
 // }
 
-// 1. Extend [ConsumerStatefulWidget]
-class MyHomePage extends ConsumerStatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-// 2. Extend [ConsumerState]
-class _MyHomePageState extends ConsumerState<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    // 3. use ref.read() in the widget life-cycle methods
-    final value = ref.read(valueProvider);
-    print(value);
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // 3. use ref.watch() to get the value of the provider
-    final value = ref.watch(valueProvider);
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Value: $value',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ),
-      ),
+      theme: Themes.primaryTheme,
+      onGenerateRoute: CustomRouter.onGenerateRoute,
+      initialRoute: Dashboard.routeName,
     );
   }
 }
